@@ -53,4 +53,9 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest
+          COVRUN="coverage run -a"
+          test $($COVRUN calculator.py 1 + 1) = 2
+          test $($COVRUN calculator.py 100 - 10) = 90
+          test $($COVRUN calculator.py 25 \* 5) = 125
+          (! $COVRUN calculator.py 30 / 5) # Should fail as division is unsupported
+          coverage report
