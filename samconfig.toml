@@ -3,7 +3,7 @@ version = 0.1
 stack_name = "Liatrio-Demo-stack"
 
 
-
+[dev]
 [dev.deploy.parameters]
 stack_name = "liatrio-demo-dev"
 no_fail_on_empty_changeset = true
@@ -16,7 +16,7 @@ image_repositories = []
 parameter_overrides = "Environment=dev"
 
 
-
+[prod]
 [prod.deploy.parameters]
 stack_name = "liatrio-demo-prod"
 no_fail_on_empty_changeset = true
