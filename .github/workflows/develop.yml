@@ -7,8 +7,8 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  release:
+    types: [created]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -28,7 +28,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-            python-version: 3.9
+            python-version: 3.11
 
   test:
 
@@ -42,7 +42,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-            python-version: 3.9
+            python-version: 3.11
 
       - name: Install dependencies
         run: |
@@ -58,3 +58,64 @@ jobs:
           test $(coverage run -a calculator.py 25 \* 5) = 125
           (! coverage run -a calculator.py 30 / 5) # Should fail as division is unsupported
           coverage report
+
+  deploy-dev:
+      runs-on: ubuntu-22.04
+      #Only run this job if the event is a release and the tag starts with v
+      if: github.event_name == 'release' && github.ref == 'refs/tags/v*'
+      needs: test
+  
+      steps:
+        - uses: actions/checkout@v3
+  
+        - name: Set up Python
+          uses: actions/setup-python@v4
+          with:
+              python-version: 3.11
+  
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+            pip3 install awscli --upgrade
+            pip3 install aws-sam-cli --upgrade
+  
+        - name: Deploy to dev
+          run: |
+            echo "Deploying to dev"
+            python --version
+            aws --version
+            aws configure set region $AWS_DEFAULT_REGION
+            sam build
+            sam deploy --config-env dev --no-fail-on-empty-changeset --parameter-overrides Version="github.ref"
+
+  deploy-prod:
+    runs-on: ubuntu-22.04
+      #Only run this job if the event is a release and the tag starts with v
+      if: github.event_name == 'release' && github.ref == 'refs/tags/v*'
+      needs: deploy-dev
+  
+      steps:
+        - uses: actions/checkout@v3
+  
+        - name: Set up Python
+          uses: actions/setup-python@v4
+          with:
+              python-version: 3.11
+  
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+            pip3 install awscli --upgrade
+            pip3 install aws-sam-cli --upgrade
+  
+        - name: Deploy to dev
+          run: |
+            echo "Deploying to Prod"
+            python --version
+            aws --version
+            aws configure set region $AWS_DEFAULT_REGION
+            sam build
+            sam deploy --config-env prod --no-fail-on-empty-changeset --parameter-overrides Version="github.ref"
+           

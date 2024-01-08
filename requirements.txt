@@ -1,1 +1,5 @@
 flask
+requests
+aws-wsgi
+awscli
+aws-sam-cli

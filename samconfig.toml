@@ -1,0 +1,29 @@
+version = 0.1
+[default.global.parameters]
+stack_name = "Liatrio-Demo-stack"
+
+
+
+[dev.deploy.parameters]
+stack_name = "liatrio-demo-dev"
+no_fail_on_empty_changeset = true
+resolve_s3 = true
+s3_prefix = "liatrio-demo-dev"
+region = "us-east-2"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+parameter_overrides = "Environment=dev"
+
+
+
+[prod.deploy.parameters]
+stack_name = "liatrio-demo-prod"
+no_fail_on_empty_changeset = true
+resolve_s3 = true
+s3_prefix = "liatrio-demo-prod"
+region = "us-east-2"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+parameter_overrides = "Environment=prod"
