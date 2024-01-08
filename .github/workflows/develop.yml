@@ -90,7 +90,7 @@ jobs:
             sam deploy --config-env dev --no-fail-on-empty-changeset --parameter-overrides Version="github.ref"
 
   deploy-prod:
-    runs-on: ubuntu-22.04
+      runs-on: ubuntu-22.04
       #Only run this job if the event is a release and the tag starts with v
       if: github.event_name == 'release' && github.ref == 'refs/tags/v*'
       needs: deploy-dev
