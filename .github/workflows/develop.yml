@@ -98,6 +98,7 @@ jobs:
       #Only run this job if the event is a release and the tag starts with v
       if: github.event_name == 'release' && github.ref == 'refs/tags/v*'
       environment: prod
+      needs: test
       env:
         AWS_DEFAULT_REGION: ${{ vars.AWS_DEFAULT_REGION }}}
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
