@@ -18,7 +18,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # Pinning to 22.04 for reliability
-        runs-on: ubuntu-22.04
+    runs-on: ubuntu-22.04
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
