@@ -96,6 +96,7 @@ jobs:
       runs-on: ubuntu-22.04
       #Only run this job if the event is a release and the tag starts with v
       if: github.event_name == 'release' && github.ref == 'refs/tags/v*'
+      on: workflow_dispatch
       needs: deploy-dev
       env:
         AWS_DEFAULT_REGION: ${{ vars.AWS_DEFAULT_REGION }}}
