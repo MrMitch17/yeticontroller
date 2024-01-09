@@ -23,7 +23,7 @@ We have chosen server-less for its ease of deployment and management for the sys
 ### Information Gathering
 The first phase is to understand what is currently the way the team works and deploys software.  The main focus is a complete understanding of the application by Liatro Engineers and Principals.
 
- - Kick of and Introductions
+ - Kick off and Introductions
  - Understanding and demonstrations of current workflows
  - Gather pain points
  - Current tools and processes
