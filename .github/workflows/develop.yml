@@ -84,4 +84,4 @@ jobs:
             aws --version
             aws configure set region $AWS_DEFAULT_REGION
             sam build
-            sam deploy --config-env dev --no-fail-on-empty-changeset --parameter-overrides "DevSHA=${{ github.sha }} Environment=dev"
+            sam deploy --config-env dev --no-fail-on-empty-changeset --parameter-overrides "Version=${{ github.sha }} Environment=dev"
