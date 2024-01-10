@@ -76,7 +76,11 @@ jobs:
             pip install -r requirements.txt
             pip3 install awscli --upgrade
             pip3 install aws-sam-cli --upgrade
-  
+
+        - name: Get short SHA
+          id: short-sha
+          run: echo "::set-output name=sha::$(git rev-parse --short ${{ github.sha }})"
+
         - name: Deploy to dev
           run: |
             echo "Deploying to dev"
@@ -84,4 +88,4 @@ jobs:
             aws --version
             aws configure set region $AWS_DEFAULT_REGION
             sam build
-            sam deploy --config-env dev --no-fail-on-empty-changeset --parameter-overrides "Version=${{ github.ref }} Environment=dev"
+            sam deploy --config-env dev --no-fail-on-empty-changeset --parameter-overrides "Version=${{ steps.short-sha.outputs.sha }} Environment=dev"
