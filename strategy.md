@@ -44,3 +44,11 @@ This phase is the "hands-on" portion of the engagement.  We reference the docume
 
 - Regular check-ins with engineers to ensure project is on track.
 - Regular check-ins with project stakeholders to communicate progress.
+
+
+### Acceptance Testing and Hand-off
+In this final phase, we will validate and test all functions and look for user testing and that they can manage the infrastructure and deployments themselves.
+
+- Demonstrations of KT
+- Documents and Readme's Reviewed and Accepted
+- SOWs Reviewed and Signed off on.
